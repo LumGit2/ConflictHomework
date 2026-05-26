@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Paris & Bear — Homework 🖤</title>
+  <title>Paris & Bear 🖤 Homework</title>
   <style>
     :root{
       --bg:#07070a; --bg2:#0b0b10;
@@ -31,7 +31,7 @@
         linear-gradient(180deg, var(--bg), var(--bg2));
       color:var(--text);
       display:flex; align-items:center; justify-content:center;
-      padding:16px;
+      padding:18px;
     }
 
     .wrap{ width:min(920px, 100%); }
@@ -39,8 +39,8 @@
     .card{
       background: var(--card);
       border:1px solid var(--border);
-      border-radius:22px;
-      padding:18px;
+      border-radius:24px;
+      padding:22px;
       box-shadow: 0 18px 60px rgba(0,0,0,0.55);
       position:relative;
       overflow:hidden;
@@ -49,7 +49,7 @@
     .card::before{
       content:"";
       position:absolute;
-      inset:-80px;
+      inset:-90px;
       background:
         radial-gradient(circle at 18% 18%, rgba(255,47,109,0.16), transparent 35%),
         radial-gradient(circle at 62% 40%, rgba(255,90,138,0.12), transparent 40%),
@@ -57,38 +57,36 @@
       pointer-events:none;
     }
 
-    /* Sticker layer (whole experience) */
-    #stickers{
+    /* Emoji sprinkle layer */
+    #sprinkles{
       position:absolute;
       inset:0;
       pointer-events:none;
       z-index:3;
     }
-    .st{
+    .spr{
       position:absolute;
-      width:84px;
-      height:84px;
-      opacity:0.98;
+      font-size:26px;
+      opacity:0.92;
       filter: drop-shadow(0 14px 16px rgba(0,0,0,0.45));
       transform: rotate(var(--rot, 0deg));
       user-select:none;
     }
-    .st.small{ width:70px; height:70px; opacity:0.9; }
-    .st.big{ width:96px; height:96px; }
-    .st.soft{ opacity:0.75; }
+    .spr.small{ font-size:22px; opacity:0.78; }
+    .spr.big{ font-size:32px; opacity:0.95; }
 
-    /* Top header */
+    /* Header */
     .top{
       position:relative;
       display:grid;
       grid-template-columns: 64px 1fr 64px;
       align-items:center;
-      gap:10px;
+      gap:12px;
       z-index:4;
-      margin-bottom:8px;
+      margin-bottom:10px;
     }
     .bubble{
-      width:58px;height:58px;border-radius:999px;
+      width:60px;height:60px;border-radius:999px;
       display:grid;place-items:center;
       background: rgba(255,255,255,0.06);
       border:1px solid rgba(255,255,255,0.12);
@@ -96,7 +94,7 @@
       user-select:none;
       box-shadow: 0 14px 24px rgba(0,0,0,0.25);
     }
-    .title{ text-align:center; line-height:1.15; }
+    .title{ text-align:center; line-height:1.2; }
     h1{
       margin:0;
       font-size:18px;
@@ -104,17 +102,17 @@
       letter-spacing:-0.3px;
     }
     .sub{
-      margin:7px 0 0 0;
+      margin:10px 0 0 0;
       color:var(--muted);
       font-size:13px;
-      line-height:1.35;
+      line-height:1.55;
     }
 
     /* Progress */
     .progress{
       position:relative;
       z-index:4;
-      margin:12px 0 14px;
+      margin:16px 0 10px;
       height:10px;
       background: rgba(255,255,255,0.06);
       border:1px solid rgba(255,255,255,0.10);
@@ -131,7 +129,7 @@
     .steptext{
       position:relative;
       z-index:4;
-      margin-top:8px;
+      margin-top:10px;
       text-align:center;
       color:var(--muted);
       font-size:12px;
@@ -141,51 +139,52 @@
     .panel{
       position:relative;
       z-index:4;
-      margin-top:14px;
-      border-radius:18px;
+      margin-top:18px;
+      border-radius:20px;
       background: rgba(255,255,255,0.04);
       border:1px solid rgba(255,255,255,0.12);
-      padding:16px;
+      padding:18px;
     }
 
     .qtag{
       display:inline-flex;
       gap:8px;
       align-items:center;
-      padding:6px 10px;
+      padding:7px 12px;
       border-radius:999px;
       background: var(--chip);
       border:1px solid rgba(255,255,255,0.10);
       font-size:12px;
       color:var(--muted);
-      margin-bottom:10px;
+      margin-bottom:14px;
     }
     .qtitle{
       font-size:18px;
       font-weight:1000;
       letter-spacing:-0.2px;
-      margin:0 0 8px 0;
+      margin:0 0 10px 0;
+      line-height:1.25;
     }
     .qhint{
-      margin:0 0 14px 0;
+      margin:0 0 16px 0;
       color:var(--muted);
       font-size:13px;
-      line-height:1.35;
+      line-height:1.55;
     }
 
     /* Slider */
     .sliderCard{
       background: rgba(255,255,255,0.06);
       border:1px solid rgba(255,255,255,0.14);
-      border-radius:18px;
-      padding:14px;
+      border-radius:20px;
+      padding:16px;
     }
     .sliderTop{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
+      gap:12px;
+      margin-bottom:12px;
     }
     .agreeLabel{
       color: var(--muted);
@@ -195,9 +194,9 @@
       text-transform:uppercase;
     }
     .scoreBubble{
-      min-width:88px;
+      min-width:92px;
       text-align:center;
-      padding:8px 10px;
+      padding:9px 12px;
       border-radius:999px;
       font-weight:1000;
       border:1px solid rgba(255,255,255,0.14);
@@ -207,13 +206,14 @@
     input[type="range"]{
       width:100%;
       accent-color: var(--rose2);
-      height:28px;
+      height:30px;
+      margin-top:2px;
     }
     .rangeLabels{
       display:flex;
       justify-content:space-between;
       gap:8px;
-      margin-top:8px;
+      margin-top:10px;
       color: var(--muted);
       font-size:11px;
     }
@@ -222,13 +222,13 @@
     .row{
       display:flex;
       gap:10px;
-      margin-top:14px;
+      margin-top:16px;
       flex-wrap:wrap;
     }
     .btn{
       border:none;
       border-radius:999px;
-      padding:10px 14px;
+      padding:11px 16px;
       font-weight:1000;
       cursor:pointer;
       background: rgba(255,255,255,0.08);
@@ -242,20 +242,20 @@
     }
     .btn:disabled{ opacity:0.45; cursor:not-allowed; }
 
-    /* Results: mobile report-card layout */
+    /* Results */
     .reportTitle{
       text-align:center;
       font-weight:1000;
       letter-spacing:-0.3px;
-      margin:2px 0 10px 0;
+      margin:4px 0 10px 0;
       font-size:18px;
     }
     .reportSubtitle{
       text-align:center;
       color:var(--muted);
       font-size:13px;
-      margin:0 0 14px 0;
-      line-height:1.35;
+      margin:0 0 16px 0;
+      line-height:1.6;
     }
 
     .grid2{ display:grid; grid-template-columns: 1fr; gap:12px; }
@@ -269,10 +269,8 @@
     .metric{
       background: rgba(255,255,255,0.05);
       border:1px solid rgba(255,255,255,0.12);
-      border-radius:18px;
-      padding:14px;
-      position:relative;
-      overflow:hidden;
+      border-radius:20px;
+      padding:16px;
     }
     .metric h3{
       margin:0 0 8px 0;
@@ -289,10 +287,10 @@
       margin:0;
     }
     .small{
-      margin:6px 0 0 0;
+      margin:8px 0 0 0;
       color: var(--muted);
       font-size:13px;
-      line-height:1.35;
+      line-height:1.6;
     }
     .badge{
       display:inline-flex;
@@ -314,15 +312,15 @@
       margin:10px 0 0 0;
       padding-left:18px;
       color: var(--muted);
-      line-height:1.45;
+      line-height:1.65;
       font-size:13px;
     }
 
     .note{
       background: rgba(255,255,255,0.05);
       border:1px solid rgba(255,255,255,0.12);
-      border-radius:18px;
-      padding:14px;
+      border-radius:20px;
+      padding:16px;
       margin-top:12px;
     }
     .note h3{
@@ -337,13 +335,13 @@
       margin:0;
       color: var(--text);
       font-size:13px;
-      line-height:1.45;
+      line-height:1.65;
     }
 
     video{
       width:100%;
-      margin-top:12px;
-      border-radius:18px;
+      margin-top:14px;
+      border-radius:20px;
       border:1px solid rgba(255,255,255,0.12);
       background:#000;
       max-height:460px;
@@ -354,13 +352,13 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <div id="stickers"></div>
+      <div id="sprinkles"></div>
 
       <div class="top">
         <div class="bubble">🌹</div>
         <div class="title">
           <h1>Paris & Bear — Conflict Glow-Up Homework 🖤</h1>
-          <div class="sub">10 questions. One slider each. Then your report card + plan.</div>
+          <div class="sub">10 questions • one slider each • then your report card + a real plan.</div>
         </div>
         <div class="bubble">🍓</div>
       </div>
@@ -373,190 +371,87 @@
   </div>
 
   <script>
-    // 10 questions. Slider 1..5 (Strongly Disagree -> Strongly Agree).
-    // Conflict Resolution is weighted heavier.
-
     const HER_NAME = "Paris";
 
+    // reverse=true means: DISAGREE is healthier, so we invert scoring (6 - value)
     const QUESTIONS = [
-      { cat:"Repair & Conflict", weight:2, title:"When we argue, respect stays.", hint:"No insults. No cheap shots. We keep it loving even when it’s tense." },
-      { cat:"Repair & Conflict", weight:2, title:"We come back to repair the vibe.", hint:"We don’t just ‘move on’. We actually fix it together." },
-      { cat:"Repair & Conflict", weight:2, title:"We can apologize cleanly.", hint:"A real apology: “I hear you. I’m sorry. I’ll do better.”" },
-      { cat:"Repair & Conflict", weight:2, title:"We pause arguments instead of escalating.", hint:"We can stop, breathe, and restart calmer." },
-      { cat:"Repair & Conflict", weight:2, title:"We don’t punish each other with silence.", hint:"Space is okay. Silent treatment as punishment isn’t." },
+      { cat:"Repair & Conflict", weight:2, emoji:"🖤", title:"When we argue, respect stays.", hint:"Even when it’s tense: no insults, no cheap shots.", reverse:false },
+      { cat:"Repair & Conflict", weight:2, emoji:"🌹", title:"We come back and repair the vibe.", hint:"We actually fix it together — not just “move on.”", reverse:false },
+      { cat:"Repair & Conflict", weight:2, emoji:"🍓", title:"We apologize without excuses.", hint:"Clean apology: “I hear you. I’m sorry. I’ll do better.”", reverse:false },
 
-      { cat:"Communication", weight:1, title:"We listen to understand (not to win).", hint:"We reflect back what we heard before we respond." },
-      { cat:"Emotional Safety", weight:1, title:"We feel emotionally safe being honest.", hint:"We can be soft and vulnerable without fear." },
-      { cat:"Teamwork & Trust", weight:1, title:"It feels like ‘us vs the problem’.", hint:"We stay on the same team during stress." },
-      { cat:"Fun & Affection", weight:1, title:"We still flirt, laugh, and stay sweet.", hint:"Even during busy weeks, the love shows up." },
-      { cat:"Intentions & Proof", weight:1, title:"We show our intentions in real life.", hint:"Not just words—consistent actions that prove we’re serious about who we are and us." },
+      // reverse-scored (good answer = disagree)
+      { cat:"Repair & Conflict", weight:2, emoji:"🖤", title:"We use silent treatment to punish each other.", hint:"Healthy answer is disagree. Space is okay; punishment silence isn’t.", reverse:true },
+      { cat:"Repair & Conflict", weight:2, emoji:"🌹", title:"We say hurtful things when we’re upset.", hint:"Healthy answer is disagree. Words leave scars.", reverse:true },
+
+      { cat:"Communication", weight:1, emoji:"🍓", title:"We listen to understand (not to win).", hint:"We reflect back what we heard before replying.", reverse:false },
+
+      // reverse-scored
+      { cat:"Communication", weight:1, emoji:"🖤", title:"We argue to prove a point, not to solve it.", hint:"Healthy answer is disagree. Aim for solution, not victory.", reverse:true },
+
+      { cat:"Emotional Safety", weight:1, emoji:"🌹", title:"We feel emotionally safe being honest.", hint:"We can be soft and vulnerable without fear.", reverse:false },
+
+      { cat:"Teamwork & Trust", weight:1, emoji:"💍", title:"It feels like ‘us vs the problem’.", hint:"We stay on the same team during stress.", reverse:false },
+
+      { cat:"Intentions & Proof", weight:1, emoji:"💐", title:"We prove intentions in real life.", hint:"Not just words — consistent actions that match who we say we are.", reverse:false },
     ];
 
-    // ---- Inline SVG “Paris + Bear” stickers (drawn in code, no external images) ----
-    function svgBear(){
-      return `
-      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="fur" x1="0" x2="1">
-            <stop offset="0" stop-color="#f6d2a1"/>
-            <stop offset="1" stop-color="#eab77d"/>
-          </linearGradient>
-          <linearGradient id="hoodie" x1="0" x2="1">
-            <stop offset="0" stop-color="#8b0f1f"/>
-            <stop offset="1" stop-color="#b21b33"/>
-          </linearGradient>
-        </defs>
-        <circle cx="28" cy="34" r="16" fill="url(#fur)"/>
-        <circle cx="92" cy="34" r="16" fill="url(#fur)"/>
-        <circle cx="60" cy="56" r="40" fill="url(#fur)"/>
-        <circle cx="45" cy="52" r="7" fill="#1a1a1a" opacity="0.85"/>
-        <circle cx="75" cy="52" r="7" fill="#1a1a1a" opacity="0.85"/>
-        <ellipse cx="60" cy="70" rx="14" ry="10" fill="#f2caa0"/>
-        <ellipse cx="60" cy="68" rx="7" ry="5" fill="#1a1a1a" opacity="0.9"/>
-        <path d="M52 76 Q60 83 68 76" stroke="#1a1a1a" stroke-width="3" fill="none" opacity="0.65"/>
-        <path d="M22 104 Q60 82 98 104" fill="url(#hoodie)" opacity="0.95"/>
-        <path d="M36 104 Q60 90 84 104" fill="#6f0c18" opacity="0.55"/>
-        <path d="M54 88 Q60 96 66 88" stroke="#ffffff" stroke-width="3" opacity="0.6"/>
-      </svg>`;
-    }
-
-    function svgParis(){
-      return `
-      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="skin" x1="0" x2="1">
-            <stop offset="0" stop-color="#f2c6a9"/>
-            <stop offset="1" stop-color="#e9b596"/>
-          </linearGradient>
-          <linearGradient id="hair" x1="0" x2="1">
-            <stop offset="0" stop-color="#3a1f16"/>
-            <stop offset="1" stop-color="#5a2d1f"/>
-          </linearGradient>
-          <linearGradient id="sweater" x1="0" x2="1">
-            <stop offset="0" stop-color="#ffffff"/>
-            <stop offset="1" stop-color="#eaeaea"/>
-          </linearGradient>
-        </defs>
-        <circle cx="60" cy="58" r="34" fill="url(#skin)"/>
-        <path d="M26 58 Q60 18 94 58 Q88 24 60 18 Q32 24 26 58Z" fill="url(#hair)"/>
-        <path d="M44 40 Q60 30 76 40" stroke="#1a1a1a" stroke-width="3" opacity="0.55" fill="none"/>
-        <circle cx="48" cy="58" r="5" fill="#1a1a1a" opacity="0.85"/>
-        <circle cx="72" cy="58" r="5" fill="#1a1a1a" opacity="0.85"/>
-        <path d="M54 72 Q60 76 66 72" stroke="#1a1a1a" stroke-width="3" opacity="0.55" fill="none"/>
-        <circle cx="38" cy="66" r="6" fill="#ff8aa8" opacity="0.55"/>
-        <circle cx="82" cy="66" r="6" fill="#ff8aa8" opacity="0.55"/>
-        <path d="M28 106 Q60 88 92 106" fill="url(#sweater)" opacity="0.95"/>
-        <path d="M46 86 Q60 100 74 86" fill="#ffffff" opacity="0.65"/>
-        <circle cx="86" cy="30" r="12" fill="url(#hair)"/>
-        <path d="M78 32 Q86 12 94 32" fill="url(#hair)"/>
-      </svg>`;
-    }
-
-    function svgProp(type){
-      // tiny props: rose, strawberry, heart
-      if(type === "rose") return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="38" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/><text x="60" y="74" font-size="52" text-anchor="middle">🌹</text></svg>`;
-      if(type === "straw") return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="38" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/><text x="60" y="74" font-size="52" text-anchor="middle">🍓</text></svg>`;
-      if(type === "heart") return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="38" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/><text x="60" y="74" font-size="52" text-anchor="middle">🖤</text></svg>`;
-      if(type === "ring") return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="38" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/><text x="60" y="74" font-size="52" text-anchor="middle">💍</text></svg>`;
-      return "";
-    }
-
-    // Sticker presets per screen (question index 0..9, and "results")
-    const STICKER_SCENES = {
-      0: [
-        {kind:"bear", cls:"big", x:"-10px", y:"110px", rot:"-8deg"},
-        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"118px", rot:"10deg"},
-        {kind:"prop:rose", cls:"small soft", x:"18px", y:"18px", rot:"-14deg"},
-        {kind:"prop:straw", cls:"small soft", x:"calc(100% - 78px)", y:"16px", rot:"14deg"},
-      ],
-      1: [
-        {kind:"bear", cls:"big", x:"-12px", y:"140px", rot:"-6deg"},
-        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"90px", rot:"9deg"},
-        {kind:"prop:heart", cls:"small", x:"12px", y:"18px", rot:"-10deg"},
-        {kind:"prop:rose", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-      ],
-      2: [
-        {kind:"paris", cls:"big", x:"-10px", y:"120px", rot:"-10deg"},
-        {kind:"bear", cls:"big", x:"calc(100% - 92px)", y:"130px", rot:"8deg"},
-        {kind:"prop:straw", cls:"small soft", x:"16px", y:"18px", rot:"-12deg"},
-        {kind:"prop:heart", cls:"small soft", x:"calc(100% - 78px)", y:"16px", rot:"14deg"},
-      ],
-      3: [
-        {kind:"bear", cls:"big", x:"-14px", y:"100px", rot:"-10deg"},
-        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"150px", rot:"10deg"},
-        {kind:"prop:rose", cls:"small", x:"18px", y:"18px", rot:"-10deg"},
-        {kind:"prop:ring", cls:"small soft", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-      ],
-      4: [
-        {kind:"paris", cls:"big", x:"-12px", y:"150px", rot:"-7deg"},
-        {kind:"bear", cls:"big", x:"calc(100% - 92px)", y:"96px", rot:"9deg"},
-        {kind:"prop:heart", cls:"small", x:"18px", y:"18px", rot:"-12deg"},
-        {kind:"prop:straw", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-      ],
-      5: [
-        {kind:"bear", cls:"big", x:"-10px", y:"150px", rot:"-8deg"},
-        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"140px", rot:"8deg"},
-        {kind:"prop:rose", cls:"small soft", x:"16px", y:"18px", rot:"-10deg"},
-        {kind:"prop:heart", cls:"small soft", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-      ],
-      6: [
-        {kind:"paris", cls:"big", x:"-10px", y:"110px", rot:"-10deg"},
-        {kind:"bear", cls:"big", x:"calc(100% - 92px)", y:"160px", rot:"10deg"},
-        {kind:"prop:heart", cls:"small", x:"18px", y:"18px", rot:"-12deg"},
-        {kind:"prop:rose", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-      ],
-      7: [
-        {kind:"bear", cls:"big", x:"-12px", y:"140px", rot:"-8deg"},
-        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"120px", rot:"8deg"},
-        {kind:"prop:straw", cls:"small soft", x:"16px", y:"18px", rot:"-12deg"},
-        {kind:"prop:ring", cls:"small soft", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-      ],
-      8: [
-        {kind:"paris", cls:"big", x:"-10px", y:"150px", rot:"-8deg"},
-        {kind:"bear", cls:"big", x:"calc(100% - 92px)", y:"140px", rot:"10deg"},
-        {kind:"prop:rose", cls:"small", x:"18px", y:"18px", rot:"-10deg"},
-        {kind:"prop:heart", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-      ],
-      9: [
-        {kind:"bear", cls:"big", x:"-12px", y:"110px", rot:"-10deg"},
-        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"110px", rot:"10deg"},
-        {kind:"prop:ring", cls:"small", x:"18px", y:"18px", rot:"-10deg"},
-        {kind:"prop:straw", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-      ],
-      results: [
-        {kind:"bear", cls:"big", x:"-14px", y:"120px", rot:"-8deg"},
-        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"130px", rot:"10deg"},
-        {kind:"prop:rose", cls:"small", x:"12px", y:"18px", rot:"-12deg"},
-        {kind:"prop:straw", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
-        {kind:"prop:heart", cls:"small soft", x:"calc(100% - 78px)", y:"calc(100% - 88px)", rot:"-10deg"},
-        {kind:"prop:ring", cls:"small soft", x:"16px", y:"calc(100% - 88px)", rot:"10deg"},
-      ]
-    };
-
-    function renderStickers(sceneKey){
-      const layer = document.getElementById("stickers");
-      layer.innerHTML = "";
-      const items = STICKER_SCENES[sceneKey] || [];
-      for(const it of items){
-        const d = document.createElement("div");
-        d.className = `st ${it.cls || ""}`;
-        d.style.left = it.x;
-        d.style.top = it.y;
-        d.style.setProperty("--rot", it.rot || "0deg");
-        if(it.kind === "bear") d.innerHTML = svgBear();
-        else if(it.kind === "paris") d.innerHTML = svgParis();
-        else if(it.kind.startsWith("prop:")) d.innerHTML = svgProp(it.kind.split(":")[1]);
-        layer.appendChild(d);
-      }
-    }
-
-    // ---- Quiz state ----
+    const picks = new Array(QUESTIONS.length).fill(3); // raw 1..5
     let idx = 0;
-    const picks = new Array(QUESTIONS.length).fill(3); // 1..5
 
     const panel = document.getElementById("panel");
     const bar = document.getElementById("bar");
     const stepText = document.getElementById("stepText");
+    const sprinkles = document.getElementById("sprinkles");
+
+    function sliderLabel(v){
+      v = Number(v);
+      if(v === 1) return "Strongly Disagree";
+      if(v === 2) return "Disagree";
+      if(v === 3) return "Neutral";
+      if(v === 4) return "Agree";
+      return "Strongly Agree";
+    }
+
+    // Emoji sprinkles per screen (simple, no creepy drawings)
+    const SPRINKLES_BY_SCREEN = [
+      ["🐻","🌹","🍓","🖤","✨"],
+      ["🐻","💐","🖤","🌹","✨"],
+      ["🐻","🍓","🌹","🖤","✨"],
+      ["🐻","🖤","🌹","✨","🍓"],
+      ["🐻","🖤","🍓","✨","🌹"],
+      ["🐻","💬","🌹","✨","🖤"],
+      ["🐻","🖤","⚡","✨","🍓"],
+      ["🐻","🌹","🖤","✨","💐"],
+      ["🐻","💍","🖤","✨","🌹"],
+      ["🐻","💐","🖤","✨","🍓"],
+    ];
+    const SPRINKLES_RESULTS = ["🐻","🌹","🍓","💍","💐","🖤","✨","✨"];
+
+    function renderSprinkles(mode){
+      // mode: question index number or "results"
+      const list = mode === "results" ? SPRINKLES_RESULTS : (SPRINKLES_BY_SCREEN[mode] || ["🐻","🌹","🍓","🖤","✨"]);
+      const spots = [
+        {x:"10px", y:"10px", rot:"-12deg", cls:"small"},
+        {x:"calc(100% - 40px)", y:"14px", rot:"12deg", cls:"small"},
+        {x:"12px", y:"calc(100% - 44px)", rot:"10deg", cls:"small"},
+        {x:"calc(100% - 44px)", y:"calc(100% - 46px)", rot:"-10deg", cls:"small"},
+        {x:"-6px", y:"160px", rot:"-8deg", cls:"big"},
+        {x:"calc(100% - 52px)", y:"190px", rot:"8deg", cls:"big"},
+        {x:"22px", y:"92px", rot:"-6deg", cls:""},
+        {x:"calc(100% - 54px)", y:"110px", rot:"6deg", cls:""},
+      ];
+
+      sprinkles.innerHTML = "";
+      for(let i=0;i<Math.min(list.length, spots.length);i++){
+        const s = document.createElement("div");
+        s.className = `spr ${spots[i].cls || ""}`;
+        s.style.left = spots[i].x;
+        s.style.top = spots[i].y;
+        s.style.setProperty("--rot", spots[i].rot);
+        s.textContent = list[i];
+        sprinkles.appendChild(s);
+      }
+    }
 
     function setProgress(){
       const total = QUESTIONS.length;
@@ -564,24 +459,15 @@
       bar.style.width = `${(idx/total)*100}%`;
     }
 
-    function sliderLabel(v){
-      const n = Number(v);
-      if(n <= 1) return "Strongly Disagree";
-      if(n === 2) return "Disagree";
-      if(n === 3) return "Neutral";
-      if(n === 4) return "Agree";
-      return "Strongly Agree";
-    }
-
     function renderQuestion(){
-      renderStickers(idx);
+      renderSprinkles(idx);
       setProgress();
 
       const q = QUESTIONS[idx];
       const current = picks[idx] ?? 3;
 
       panel.innerHTML = `
-        <div class="qtag">🖤 <strong>${q.cat}</strong> <span style="opacity:.65;">•</span> <span>weight x${q.weight}</span></div>
+        <div class="qtag">${q.emoji} <strong>${q.cat}</strong> <span style="opacity:.65;">•</span> <span>weight x${q.weight}</span></div>
         <h2 class="qtitle">${q.title}</h2>
         <p class="qhint">${q.hint}</p>
 
@@ -589,7 +475,7 @@
           <div class="sliderTop">
             <div>
               <div class="agreeLabel">Your answer</div>
-              <div style="margin-top:6px;font-weight:1000;">${sliderLabel(current)}</div>
+              <div id="labelLine" style="margin-top:8px;font-weight:1000;line-height:1.35;">${sliderLabel(current)}</div>
             </div>
             <div class="scoreBubble" id="scoreBubble">${current}/5</div>
           </div>
@@ -608,13 +494,13 @@
 
       const range = document.getElementById("range");
       const bubble = document.getElementById("scoreBubble");
+      const labelLine = document.getElementById("labelLine");
 
       range.addEventListener("input", () => {
         const v = Number(range.value);
         picks[idx] = v;
         bubble.textContent = `${v}/5`;
-        // update label line
-        panel.querySelector(".sliderTop > div > div:nth-child(2)").textContent = sliderLabel(v);
+        labelLine.textContent = sliderLabel(v);
       });
 
       document.getElementById("backBtn").addEventListener("click", () => {
@@ -633,19 +519,20 @@
 
       for(let i=0;i<QUESTIONS.length;i++){
         const q = QUESTIONS[i];
-        const s = Number(picks[i] ?? 3);
-        wSum += s * q.weight;
+        const raw = Number(picks[i] ?? 3);
+        const scored = q.reverse ? (6 - raw) : raw; // invert if reverse-scored
+
+        wSum += scored * q.weight;
         wMax += 5 * q.weight;
 
         if(!cats[q.cat]) cats[q.cat] = { sum:0, max:0 };
-        cats[q.cat].sum += s;
+        cats[q.cat].sum += scored;
         cats[q.cat].max += 5;
       }
 
       const overall = wSum / wMax; // 0..1
       const conflict = (cats["Repair & Conflict"].sum / cats["Repair & Conflict"].max) * 10;
 
-      // weakest categories
       const catScores = Object.keys(cats).map(k => ({ cat:k, pct: cats[k].sum / cats[k].max }))
         .sort((a,b)=>a.pct-b.pct);
 
@@ -664,35 +551,30 @@
 
       const focusLines = [];
       if(weakest.includes("Repair & Conflict")){
-        focusLines.push("When conflict hits, the goal is **repair**, not winning. Practice pausing, soft starts, and coming back to finish the conversation.");
+        focusLines.push("Conflict is the level-up zone. The goal is **repair**, not winning. Pause, soften, then come back and finish properly.");
       }
       if(weakest.includes("Communication")){
-        focusLines.push("Communication slips show up when we respond fast. Slow down: **repeat back what you heard** before explaining your side.");
+        focusLines.push("When communication slips, slow down: **repeat back what you heard** before explaining your side.");
       }
       if(weakest.includes("Emotional Safety")){
-        focusLines.push("Emotional safety grows when we stay gentle with each other’s feelings. Ask: **“Do you want comfort or solutions?”**");
+        focusLines.push("Emotional safety grows when we stay gentle with feelings: ask **“comfort or solutions?”**");
       }
       if(weakest.includes("Teamwork & Trust")){
-        focusLines.push("Teamwork improves when we say it out loud: **“Us vs the problem.”** Name the problem together, then solve it together.");
-      }
-      if(weakest.includes("Fun & Affection")){
-        focusLines.push("Affection is the glue. Even on messy days: a hug, a compliment, a tiny moment of softness.");
+        focusLines.push("Teamwork improves when you say it out loud: **“Us vs the problem.”** Name the problem together, then solve it together.");
       }
       if(weakest.includes("Intentions & Proof")){
-        focusLines.push("The big one: intentions need **proof**. Real love looks like consistent actions that match our words.");
+        focusLines.push("Intentions need **proof**: consistent actions that match the words, especially after hard moments.");
       }
 
       const goodLines = [];
       for(const s of strengths){
-        if(s === "Fun & Affection") goodLines.push("You two still have that playful spark — protect it.");
         if(s === "Teamwork & Trust") goodLines.push("You’re strongest when you stay on the same team.");
-        if(s === "Emotional Safety") goodLines.push("There’s real softness here — that’s rare.");
+        if(s === "Emotional Safety") goodLines.push("There’s softness here — protect it.");
         if(s === "Communication") goodLines.push("You can understand each other when you slow down.");
         if(s === "Repair & Conflict") goodLines.push("You can bounce back — keep polishing the repair habit.");
         if(s === "Intentions & Proof") goodLines.push("Your intentions are showing — keep matching words with actions.");
       }
 
-      // Always include the “real world” line the user asked for
       const realWorld = "Now the important part: **apply it in the real world**. Not just this page. Show each other you’re serious through consistency, patience, and the way you handle the hard moments. That’s where intentions become real.";
 
       return { focusLines, goodLines, realWorld, weakest, strengths };
@@ -708,23 +590,20 @@
         plan.push("Try **Repeat & Confirm**: “What I’m hearing is __. Did I get that right?”");
       }
       if(weakest.includes("Emotional Safety")){
-        plan.push("Use a **soft start**: “Babe, can I share something gently?” (no accusations).");
+        plan.push("Use a **soft start**: “Babe, can I share something gently?”");
       }
       if(weakest.includes("Teamwork & Trust")){
         plan.push("Say “**Us vs the problem**” and write the problem in one sentence together.");
       }
-      if(weakest.includes("Fun & Affection")){
-        plan.push("Daily **2-minute softness**: hug + one compliment + one thank you.");
-      }
       if(weakest.includes("Intentions & Proof")){
-        plan.push("Pick **one promise** each and prove it for 7 days (small, consistent actions).");
+        plan.push("Pick **one promise each** and prove it for 7 days (small, consistent actions).");
       }
       plan.push("Weekly **10-minute debrief**: What went well? What triggered us? What’s our one tweak?");
       return plan.slice(0,6);
     }
 
     function renderResults(){
-      renderStickers("results");
+      renderSprinkles("results");
       bar.style.width = "100%";
       stepText.textContent = "Finished • Report Card";
 
@@ -791,7 +670,7 @@
           <ul class="list">${plan}</ul>
         </div>
 
-        <div class="row" style="margin-top:14px;">
+        <div class="row" style="margin-top:16px;">
           <button class="btn" id="restartBtn">Retake</button>
           <button class="btn primary" id="watchBtn">Watch the video 💍</button>
         </div>
@@ -815,7 +694,6 @@
       });
     }
 
-    // start
     renderQuestion();
   </script>
 </body>
