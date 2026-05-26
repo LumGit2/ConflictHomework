@@ -3,414 +3,820 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🖤 Paris</title>
-
+  <title>Paris & Bear — Homework 🖤</title>
   <style>
     :root{
-      --bg:#07070a;
-      --bg2:#0b0b10;
-      --card:rgba(18,18,26,0.86);
-      --border:rgba(255,255,255,0.08);
+      --bg:#07070a; --bg2:#0b0b10;
+      --card:rgba(18,18,26,0.92);
+      --border:rgba(255,255,255,0.10);
       --text:#f5f5f7;
       --muted:rgba(245,245,247,0.72);
       --rose:#ff2f6d;
       --rose2:#ff5a8a;
       --gold:#f7d57a;
+      --chip:rgba(255,255,255,0.06);
+      --good:#4ade80;
+      --mid:#fbbf24;
+      --low:#fb7185;
     }
 
     *{ box-sizing:border-box; }
     body{
-      margin:0;
-      min-height:100vh;
+      margin:0; min-height:100vh;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(circle at 15% 20%, rgba(255,47,109,0.12), transparent 45%),
+        radial-gradient(circle at 15% 20%, rgba(255,47,109,0.14), transparent 45%),
         radial-gradient(circle at 85% 15%, rgba(247,213,122,0.10), transparent 45%),
         radial-gradient(circle at 80% 85%, rgba(255,90,138,0.10), transparent 50%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
+      display:flex; align-items:center; justify-content:center;
+      padding:16px;
     }
 
+    .wrap{ width:min(920px, 100%); }
+
     .card{
-      width:min(760px, 100%);
       background: var(--card);
       border:1px solid var(--border);
       border-radius:22px;
-      padding:22px;
+      padding:18px;
       box-shadow: 0 18px 60px rgba(0,0,0,0.55);
       position:relative;
       overflow:hidden;
       backdrop-filter: blur(10px);
     }
-
-    /* subtle rose pattern */
     .card::before{
       content:"";
       position:absolute;
       inset:-80px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,47,109,0.14), transparent 35%),
-        radial-gradient(circle at 60% 40%, rgba(255,90,138,0.10), transparent 40%),
-        radial-gradient(circle at 85% 70%, rgba(247,213,122,0.08), transparent 45%);
-      filter: blur(1px);
+        radial-gradient(circle at 18% 18%, rgba(255,47,109,0.16), transparent 35%),
+        radial-gradient(circle at 62% 40%, rgba(255,90,138,0.12), transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(247,213,122,0.10), transparent 45%);
       pointer-events:none;
     }
 
+    /* Sticker layer (whole experience) */
+    #stickers{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:3;
+    }
+    .st{
+      position:absolute;
+      width:84px;
+      height:84px;
+      opacity:0.98;
+      filter: drop-shadow(0 14px 16px rgba(0,0,0,0.45));
+      transform: rotate(var(--rot, 0deg));
+      user-select:none;
+    }
+    .st.small{ width:70px; height:70px; opacity:0.9; }
+    .st.big{ width:96px; height:96px; }
+    .st.soft{ opacity:0.75; }
+
+    /* Top header */
     .top{
       position:relative;
       display:grid;
-      grid-template-columns: 90px 1fr 90px;
+      grid-template-columns: 64px 1fr 64px;
       align-items:center;
       gap:10px;
-      margin-bottom:12px;
-      z-index:2;
+      z-index:4;
+      margin-bottom:8px;
     }
-
     .bubble{
-      width:76px;
-      height:76px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
+      width:58px;height:58px;border-radius:999px;
+      display:grid;place-items:center;
       background: rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 14px 24px rgba(0,0,0,0.25);
-      font-size:34px;
+      border:1px solid rgba(255,255,255,0.12);
+      font-size:28px;
       user-select:none;
+      box-shadow: 0 14px 24px rgba(0,0,0,0.25);
     }
-
-    .title-wrap{
-      text-align:center;
-      line-height:1.15;
-      padding:0 6px;
-    }
-
+    .title{ text-align:center; line-height:1.15; }
     h1{
       margin:0;
-      font-size:22px;
-      font-weight:900;
-      letter-spacing:-0.4px;
+      font-size:18px;
+      font-weight:1000;
+      letter-spacing:-0.3px;
     }
-
-    .subtitle{
-      margin:8px 0 0 0;
+    .sub{
+      margin:7px 0 0 0;
       color:var(--muted);
-      font-size:14px;
+      font-size:13px;
+      line-height:1.35;
     }
 
-    .yes-area{
+    /* Progress */
+    .progress{
       position:relative;
-      z-index:2;
+      z-index:4;
+      margin:12px 0 14px;
+      height:10px;
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .bar{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--rose), var(--rose2), var(--gold));
+      border-radius:999px;
+      transition: width 240ms ease;
+    }
+    .steptext{
+      position:relative;
+      z-index:4;
+      margin-top:8px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* Panel */
+    .panel{
+      position:relative;
+      z-index:4;
       margin-top:14px;
       border-radius:18px;
       background: rgba(255,255,255,0.04);
-      border:1px dashed rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.12);
+      padding:16px;
+    }
+
+    .qtag{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      background: var(--chip);
+      border:1px solid rgba(255,255,255,0.10);
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .qtitle{
+      font-size:18px;
+      font-weight:1000;
+      letter-spacing:-0.2px;
+      margin:0 0 8px 0;
+    }
+    .qhint{
+      margin:0 0 14px 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+
+    /* Slider */
+    .sliderCard{
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.14);
+      border-radius:18px;
       padding:14px;
-      min-height:290px;
+    }
+    .sliderTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .agreeLabel{
+      color: var(--muted);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.2px;
+      text-transform:uppercase;
+    }
+    .scoreBubble{
+      min-width:88px;
+      text-align:center;
+      padding:8px 10px;
+      border-radius:999px;
+      font-weight:1000;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.25);
+    }
+
+    input[type="range"]{
+      width:100%;
+      accent-color: var(--rose2);
+      height:28px;
+    }
+    .rangeLabels{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-top:8px;
+      color: var(--muted);
+      font-size:11px;
+    }
+    .rangeLabels span{ width:20%; text-align:center; opacity:0.9; }
+
+    .row{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:1000;
+      cursor:pointer;
+      background: rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.14);
+      color: var(--text);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--rose), var(--rose2));
+      border:none;
+      box-shadow: 0 14px 28px rgba(255,47,109,0.20);
+    }
+    .btn:disabled{ opacity:0.45; cursor:not-allowed; }
+
+    /* Results: mobile report-card layout */
+    .reportTitle{
+      text-align:center;
+      font-weight:1000;
+      letter-spacing:-0.3px;
+      margin:2px 0 10px 0;
+      font-size:18px;
+    }
+    .reportSubtitle{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      margin:0 0 14px 0;
+      line-height:1.35;
+    }
+
+    .grid2{ display:grid; grid-template-columns: 1fr; gap:12px; }
+    @media (min-width: 720px){
+      h1{ font-size:20px; }
+      .qtitle{ font-size:20px; }
+      .grid2{ grid-template-columns: 1fr 1fr; }
+      .reportTitle{ font-size:20px; }
+    }
+
+    .metric{
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      padding:14px;
+      position:relative;
       overflow:hidden;
     }
-
-    .yes-btn{
-      appearance:none;
-      border:none;
-      background: linear-gradient(135deg, var(--rose), var(--rose2));
-      color:white;
-      font-weight:900;
-      padding:10px 16px;
+    .metric h3{
+      margin:0 0 8px 0;
+      font-size:12px;
+      color: var(--muted);
+      font-weight:1000;
+      letter-spacing:0.2px;
+      text-transform:uppercase;
+    }
+    .big{
+      font-size:34px;
+      font-weight:1100;
+      letter-spacing:-0.6px;
+      margin:0;
+    }
+    .small{
+      margin:6px 0 0 0;
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:10px;
+      padding:6px 10px;
       border-radius:999px;
-      cursor:pointer;
-      box-shadow: 0 14px 28px rgba(255,47,109,0.22);
-      user-select:none;
-      position:absolute;
-      animation: bob 2.8s ease-in-out infinite;
-      will-change:left, top, transform;
-    }
-    @keyframes bob{
-      0%{ transform: translateY(0); }
-      50%{ transform: translateY(-10px); }
-      100%{ transform: translateY(0); }
-    }
-
-    /* tiny NO, always visible, never clickable */
-    .no-tiny{
-      position:absolute;
-      font-size:11px;
-      opacity:0.55;
-      padding:6px 8px;
-      border-radius:10px;
+      font-weight:1000;
+      font-size:12px;
       border:1px solid rgba(255,255,255,0.14);
       background: rgba(255,255,255,0.06);
-      pointer-events:none;
-      user-select:none;
-      color: rgba(245,245,247,0.75);
-      z-index:5;
+    }
+    .badge.good{ color: var(--good); }
+    .badge.mid{ color: var(--mid); }
+    .badge.low{ color: var(--low); }
+
+    .list{
+      margin:10px 0 0 0;
+      padding-left:18px;
+      color: var(--muted);
+      line-height:1.45;
+      font-size:13px;
     }
 
-    .screen{ display:none; }
-    .screen.active{ display:block; }
+    .note{
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      padding:14px;
+      margin-top:12px;
+    }
+    .note h3{
+      margin:0 0 8px 0;
+      font-size:12px;
+      color: var(--muted);
+      font-weight:1000;
+      letter-spacing:0.2px;
+      text-transform:uppercase;
+    }
+    .note p{
+      margin:0;
+      color: var(--text);
+      font-size:13px;
+      line-height:1.45;
+    }
 
     video{
       width:100%;
-      max-height:460px;
+      margin-top:12px;
       border-radius:18px;
-      border:1px solid rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.12);
       background:#000;
-    }
-
-    .confetti-layer{
-      position:absolute;
-      inset:-20px;
-      pointer-events:none;
-      overflow:hidden;
-      border-radius:22px;
-      z-index:50;
-    }
-
-    .confetti-heart{
-      position:absolute;
-      top:-40px;
-      opacity:0.95;
-      will-change: transform, opacity;
-      filter: drop-shadow(0 10px 12px rgba(0,0,0,0.35));
+      max-height:460px;
     }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <div class="confetti-layer" id="confetti"></div>
+  <div class="wrap">
+    <div class="card">
+      <div id="stickers"></div>
 
-    <!-- SCREEN 1 -->
-    <div id="screen1" class="screen active">
       <div class="top">
-        <div class="bubble" aria-hidden="true">🌹</div>
-
-        <div class="title-wrap">
-          <h1 id="question">Paris, Will You Marry Me?</h1>
-          <p class="subtitle">Just tap “YES” 🖤</p>
+        <div class="bubble">🌹</div>
+        <div class="title">
+          <h1>Paris & Bear — Conflict Glow-Up Homework 🖤</h1>
+          <div class="sub">10 questions. One slider each. Then your report card + plan.</div>
         </div>
-
-        <div class="bubble" aria-hidden="true">🍓</div>
+        <div class="bubble">🍓</div>
       </div>
 
-      <div class="yes-area" id="yesArea">
-        <div class="no-tiny" id="noTiny">no</div>
-      </div>
-    </div>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <div class="steptext" id="stepText">Question 1 of 10</div>
 
-    <!-- SCREEN 2 -->
-    <div id="screen2" class="screen">
-      <div class="top">
-        <div class="bubble" aria-hidden="true">🌹</div>
-        <div class="title-wrap">
-          <h1>It’s you. Always. 💍</h1>
-          <p class="subtitle">Forever starts now.</p>
-        </div>
-        <div class="bubble" aria-hidden="true">🍓</div>
-      </div>
-
-      <video id="vid" controls autoplay playsinline>
-        <source src="proposal.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <div class="panel" id="panel"></div>
     </div>
   </div>
 
   <script>
+    // 10 questions. Slider 1..5 (Strongly Disagree -> Strongly Agree).
+    // Conflict Resolution is weighted heavier.
+
     const HER_NAME = "Paris";
-    const YES_COUNT = 30;
 
-    document.getElementById("question").textContent = `${HER_NAME}, Will You Marry Me?`;
+    const QUESTIONS = [
+      { cat:"Repair & Conflict", weight:2, title:"When we argue, respect stays.", hint:"No insults. No cheap shots. We keep it loving even when it’s tense." },
+      { cat:"Repair & Conflict", weight:2, title:"We come back to repair the vibe.", hint:"We don’t just ‘move on’. We actually fix it together." },
+      { cat:"Repair & Conflict", weight:2, title:"We can apologize cleanly.", hint:"A real apology: “I hear you. I’m sorry. I’ll do better.”" },
+      { cat:"Repair & Conflict", weight:2, title:"We pause arguments instead of escalating.", hint:"We can stop, breathe, and restart calmer." },
+      { cat:"Repair & Conflict", weight:2, title:"We don’t punish each other with silence.", hint:"Space is okay. Silent treatment as punishment isn’t." },
 
-    const yesArea = document.getElementById("yesArea");
-    const noTiny  = document.getElementById("noTiny");
-    const confetti = document.getElementById("confetti");
-    const buttons = [];
+      { cat:"Communication", weight:1, title:"We listen to understand (not to win).", hint:"We reflect back what we heard before we respond." },
+      { cat:"Emotional Safety", weight:1, title:"We feel emotionally safe being honest.", hint:"We can be soft and vulnerable without fear." },
+      { cat:"Teamwork & Trust", weight:1, title:"It feels like ‘us vs the problem’.", hint:"We stay on the same team during stress." },
+      { cat:"Fun & Affection", weight:1, title:"We still flirt, laugh, and stay sweet.", hint:"Even during busy weeks, the love shows up." },
+      { cat:"Intentions & Proof", weight:1, title:"We show our intentions in real life.", hint:"Not just words—consistent actions that prove we’re serious about who we are and us." },
+    ];
 
-    function rand(min, max){ return Math.random() * (max - min) + min; }
+    // ---- Inline SVG “Paris + Bear” stickers (drawn in code, no external images) ----
+    function svgBear(){
+      return `
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="fur" x1="0" x2="1">
+            <stop offset="0" stop-color="#f6d2a1"/>
+            <stop offset="1" stop-color="#eab77d"/>
+          </linearGradient>
+          <linearGradient id="hoodie" x1="0" x2="1">
+            <stop offset="0" stop-color="#8b0f1f"/>
+            <stop offset="1" stop-color="#b21b33"/>
+          </linearGradient>
+        </defs>
+        <circle cx="28" cy="34" r="16" fill="url(#fur)"/>
+        <circle cx="92" cy="34" r="16" fill="url(#fur)"/>
+        <circle cx="60" cy="56" r="40" fill="url(#fur)"/>
+        <circle cx="45" cy="52" r="7" fill="#1a1a1a" opacity="0.85"/>
+        <circle cx="75" cy="52" r="7" fill="#1a1a1a" opacity="0.85"/>
+        <ellipse cx="60" cy="70" rx="14" ry="10" fill="#f2caa0"/>
+        <ellipse cx="60" cy="68" rx="7" ry="5" fill="#1a1a1a" opacity="0.9"/>
+        <path d="M52 76 Q60 83 68 76" stroke="#1a1a1a" stroke-width="3" fill="none" opacity="0.65"/>
+        <path d="M22 104 Q60 82 98 104" fill="url(#hoodie)" opacity="0.95"/>
+        <path d="M36 104 Q60 90 84 104" fill="#6f0c18" opacity="0.55"/>
+        <path d="M54 88 Q60 96 66 88" stroke="#ffffff" stroke-width="3" opacity="0.6"/>
+      </svg>`;
+    }
 
-    // ---------- YES buttons drift ----------
-    function placeButtons(){
-      yesArea.querySelectorAll(".yes-btn").forEach(b => b.remove());
-      buttons.length = 0;
+    function svgParis(){
+      return `
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="skin" x1="0" x2="1">
+            <stop offset="0" stop-color="#f2c6a9"/>
+            <stop offset="1" stop-color="#e9b596"/>
+          </linearGradient>
+          <linearGradient id="hair" x1="0" x2="1">
+            <stop offset="0" stop-color="#3a1f16"/>
+            <stop offset="1" stop-color="#5a2d1f"/>
+          </linearGradient>
+          <linearGradient id="sweater" x1="0" x2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#eaeaea"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="58" r="34" fill="url(#skin)"/>
+        <path d="M26 58 Q60 18 94 58 Q88 24 60 18 Q32 24 26 58Z" fill="url(#hair)"/>
+        <path d="M44 40 Q60 30 76 40" stroke="#1a1a1a" stroke-width="3" opacity="0.55" fill="none"/>
+        <circle cx="48" cy="58" r="5" fill="#1a1a1a" opacity="0.85"/>
+        <circle cx="72" cy="58" r="5" fill="#1a1a1a" opacity="0.85"/>
+        <path d="M54 72 Q60 76 66 72" stroke="#1a1a1a" stroke-width="3" opacity="0.55" fill="none"/>
+        <circle cx="38" cy="66" r="6" fill="#ff8aa8" opacity="0.55"/>
+        <circle cx="82" cy="66" r="6" fill="#ff8aa8" opacity="0.55"/>
+        <path d="M28 106 Q60 88 92 106" fill="url(#sweater)" opacity="0.95"/>
+        <path d="M46 86 Q60 100 74 86" fill="#ffffff" opacity="0.65"/>
+        <circle cx="86" cy="30" r="12" fill="url(#hair)"/>
+        <path d="M78 32 Q86 12 94 32" fill="url(#hair)"/>
+      </svg>`;
+    }
 
-      const rect = yesArea.getBoundingClientRect();
-      const padding = 14;
+    function svgProp(type){
+      // tiny props: rose, strawberry, heart
+      if(type === "rose") return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="38" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/><text x="60" y="74" font-size="52" text-anchor="middle">🌹</text></svg>`;
+      if(type === "straw") return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="38" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/><text x="60" y="74" font-size="52" text-anchor="middle">🍓</text></svg>`;
+      if(type === "heart") return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="38" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/><text x="60" y="74" font-size="52" text-anchor="middle">🖤</text></svg>`;
+      if(type === "ring") return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="38" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/><text x="60" y="74" font-size="52" text-anchor="middle">💍</text></svg>`;
+      return "";
+    }
 
-      for(let i=0;i<YES_COUNT;i++){
-        const btn = document.createElement("button");
-        btn.className = "yes-btn";
-        btn.textContent = "YES";
+    // Sticker presets per screen (question index 0..9, and "results")
+    const STICKER_SCENES = {
+      0: [
+        {kind:"bear", cls:"big", x:"-10px", y:"110px", rot:"-8deg"},
+        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"118px", rot:"10deg"},
+        {kind:"prop:rose", cls:"small soft", x:"18px", y:"18px", rot:"-14deg"},
+        {kind:"prop:straw", cls:"small soft", x:"calc(100% - 78px)", y:"16px", rot:"14deg"},
+      ],
+      1: [
+        {kind:"bear", cls:"big", x:"-12px", y:"140px", rot:"-6deg"},
+        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"90px", rot:"9deg"},
+        {kind:"prop:heart", cls:"small", x:"12px", y:"18px", rot:"-10deg"},
+        {kind:"prop:rose", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+      ],
+      2: [
+        {kind:"paris", cls:"big", x:"-10px", y:"120px", rot:"-10deg"},
+        {kind:"bear", cls:"big", x:"calc(100% - 92px)", y:"130px", rot:"8deg"},
+        {kind:"prop:straw", cls:"small soft", x:"16px", y:"18px", rot:"-12deg"},
+        {kind:"prop:heart", cls:"small soft", x:"calc(100% - 78px)", y:"16px", rot:"14deg"},
+      ],
+      3: [
+        {kind:"bear", cls:"big", x:"-14px", y:"100px", rot:"-10deg"},
+        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"150px", rot:"10deg"},
+        {kind:"prop:rose", cls:"small", x:"18px", y:"18px", rot:"-10deg"},
+        {kind:"prop:ring", cls:"small soft", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+      ],
+      4: [
+        {kind:"paris", cls:"big", x:"-12px", y:"150px", rot:"-7deg"},
+        {kind:"bear", cls:"big", x:"calc(100% - 92px)", y:"96px", rot:"9deg"},
+        {kind:"prop:heart", cls:"small", x:"18px", y:"18px", rot:"-12deg"},
+        {kind:"prop:straw", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+      ],
+      5: [
+        {kind:"bear", cls:"big", x:"-10px", y:"150px", rot:"-8deg"},
+        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"140px", rot:"8deg"},
+        {kind:"prop:rose", cls:"small soft", x:"16px", y:"18px", rot:"-10deg"},
+        {kind:"prop:heart", cls:"small soft", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+      ],
+      6: [
+        {kind:"paris", cls:"big", x:"-10px", y:"110px", rot:"-10deg"},
+        {kind:"bear", cls:"big", x:"calc(100% - 92px)", y:"160px", rot:"10deg"},
+        {kind:"prop:heart", cls:"small", x:"18px", y:"18px", rot:"-12deg"},
+        {kind:"prop:rose", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+      ],
+      7: [
+        {kind:"bear", cls:"big", x:"-12px", y:"140px", rot:"-8deg"},
+        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"120px", rot:"8deg"},
+        {kind:"prop:straw", cls:"small soft", x:"16px", y:"18px", rot:"-12deg"},
+        {kind:"prop:ring", cls:"small soft", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+      ],
+      8: [
+        {kind:"paris", cls:"big", x:"-10px", y:"150px", rot:"-8deg"},
+        {kind:"bear", cls:"big", x:"calc(100% - 92px)", y:"140px", rot:"10deg"},
+        {kind:"prop:rose", cls:"small", x:"18px", y:"18px", rot:"-10deg"},
+        {kind:"prop:heart", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+      ],
+      9: [
+        {kind:"bear", cls:"big", x:"-12px", y:"110px", rot:"-10deg"},
+        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"110px", rot:"10deg"},
+        {kind:"prop:ring", cls:"small", x:"18px", y:"18px", rot:"-10deg"},
+        {kind:"prop:straw", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+      ],
+      results: [
+        {kind:"bear", cls:"big", x:"-14px", y:"120px", rot:"-8deg"},
+        {kind:"paris", cls:"big", x:"calc(100% - 92px)", y:"130px", rot:"10deg"},
+        {kind:"prop:rose", cls:"small", x:"12px", y:"18px", rot:"-12deg"},
+        {kind:"prop:straw", cls:"small", x:"calc(100% - 78px)", y:"18px", rot:"12deg"},
+        {kind:"prop:heart", cls:"small soft", x:"calc(100% - 78px)", y:"calc(100% - 88px)", rot:"-10deg"},
+        {kind:"prop:ring", cls:"small soft", x:"16px", y:"calc(100% - 88px)", rot:"10deg"},
+      ]
+    };
 
-        btn.style.animationDuration = `${rand(2.2, 4.2).toFixed(2)}s`;
-        btn.style.animationDelay = `${rand(0, 1.2).toFixed(2)}s`;
-
-        yesArea.appendChild(btn);
-
-        const bw = btn.offsetWidth;
-        const bh = btn.offsetHeight;
-
-        const maxLeft = Math.max(padding, rect.width - bw - padding);
-        const maxTop  = Math.max(padding, rect.height - bh - padding);
-
-        const x = rand(padding, maxLeft);
-        const y = rand(padding, maxTop);
-
-        btn.style.left = x + "px";
-        btn.style.top  = y + "px";
-
-        const speed = rand(0.25, 0.65);
-        const angle = rand(0, Math.PI * 2);
-        const vx = Math.cos(angle) * speed;
-        const vy = Math.sin(angle) * speed;
-
-        buttons.push({ el: btn, x, y, vx, vy, bw, bh });
-        btn.addEventListener("click", () => goToVideo());
+    function renderStickers(sceneKey){
+      const layer = document.getElementById("stickers");
+      layer.innerHTML = "";
+      const items = STICKER_SCENES[sceneKey] || [];
+      for(const it of items){
+        const d = document.createElement("div");
+        d.className = `st ${it.cls || ""}`;
+        d.style.left = it.x;
+        d.style.top = it.y;
+        d.style.setProperty("--rot", it.rot || "0deg");
+        if(it.kind === "bear") d.innerHTML = svgBear();
+        else if(it.kind === "paris") d.innerHTML = svgParis();
+        else if(it.kind.startsWith("prop:")) d.innerHTML = svgProp(it.kind.split(":")[1]);
+        layer.appendChild(d);
       }
     }
 
-    function animateButtons(){
-      const rect = yesArea.getBoundingClientRect();
-      const padding = 14;
+    // ---- Quiz state ----
+    let idx = 0;
+    const picks = new Array(QUESTIONS.length).fill(3); // 1..5
 
-      for(const b of buttons){
-        b.bw = b.el.offsetWidth;
-        b.bh = b.el.offsetHeight;
+    const panel = document.getElementById("panel");
+    const bar = document.getElementById("bar");
+    const stepText = document.getElementById("stepText");
 
-        const minX = padding;
-        const minY = padding;
-        const maxX = rect.width - b.bw - padding;
-        const maxY = rect.height - b.bh - padding;
+    function setProgress(){
+      const total = QUESTIONS.length;
+      stepText.textContent = `Question ${idx+1} of ${total}`;
+      bar.style.width = `${(idx/total)*100}%`;
+    }
 
-        b.x += b.vx;
-        b.y += b.vy;
+    function sliderLabel(v){
+      const n = Number(v);
+      if(n <= 1) return "Strongly Disagree";
+      if(n === 2) return "Disagree";
+      if(n === 3) return "Neutral";
+      if(n === 4) return "Agree";
+      return "Strongly Agree";
+    }
 
-        if (b.x <= minX) { b.x = minX; b.vx *= -1; }
-        if (b.x >= maxX) { b.x = maxX; b.vx *= -1; }
-        if (b.y <= minY) { b.y = minY; b.vy *= -1; }
-        if (b.y >= maxY) { b.y = maxY; b.vy *= -1; }
+    function renderQuestion(){
+      renderStickers(idx);
+      setProgress();
 
-        b.el.style.left = b.x + "px";
-        b.el.style.top  = b.y + "px";
+      const q = QUESTIONS[idx];
+      const current = picks[idx] ?? 3;
+
+      panel.innerHTML = `
+        <div class="qtag">🖤 <strong>${q.cat}</strong> <span style="opacity:.65;">•</span> <span>weight x${q.weight}</span></div>
+        <h2 class="qtitle">${q.title}</h2>
+        <p class="qhint">${q.hint}</p>
+
+        <div class="sliderCard">
+          <div class="sliderTop">
+            <div>
+              <div class="agreeLabel">Your answer</div>
+              <div style="margin-top:6px;font-weight:1000;">${sliderLabel(current)}</div>
+            </div>
+            <div class="scoreBubble" id="scoreBubble">${current}/5</div>
+          </div>
+
+          <input id="range" type="range" min="1" max="5" step="1" value="${current}" />
+          <div class="rangeLabels">
+            <span>SD</span><span>D</span><span>OK</span><span>A</span><span>SA</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <button class="btn" id="backBtn" ${idx===0?'disabled':''}>Back</button>
+          <button class="btn primary" id="nextBtn">${idx===QUESTIONS.length-1 ? 'Finish' : 'Next'}</button>
+        </div>
+      `;
+
+      const range = document.getElementById("range");
+      const bubble = document.getElementById("scoreBubble");
+
+      range.addEventListener("input", () => {
+        const v = Number(range.value);
+        picks[idx] = v;
+        bubble.textContent = `${v}/5`;
+        // update label line
+        panel.querySelector(".sliderTop > div > div:nth-child(2)").textContent = sliderLabel(v);
+      });
+
+      document.getElementById("backBtn").addEventListener("click", () => {
+        if(idx>0){ idx--; renderQuestion(); }
+      });
+
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        if(idx < QUESTIONS.length-1){ idx++; renderQuestion(); }
+        else renderResults();
+      });
+    }
+
+    function compute(){
+      let wSum = 0, wMax = 0;
+      const cats = {};
+
+      for(let i=0;i<QUESTIONS.length;i++){
+        const q = QUESTIONS[i];
+        const s = Number(picks[i] ?? 3);
+        wSum += s * q.weight;
+        wMax += 5 * q.weight;
+
+        if(!cats[q.cat]) cats[q.cat] = { sum:0, max:0 };
+        cats[q.cat].sum += s;
+        cats[q.cat].max += 5;
       }
-      requestAnimationFrame(animateButtons);
+
+      const overall = wSum / wMax; // 0..1
+      const conflict = (cats["Repair & Conflict"].sum / cats["Repair & Conflict"].max) * 10;
+
+      // weakest categories
+      const catScores = Object.keys(cats).map(k => ({ cat:k, pct: cats[k].sum / cats[k].max }))
+        .sort((a,b)=>a.pct-b.pct);
+
+      return { overall, conflict, cats, catScores };
     }
 
-    // ---------- NO dodges but stays visible ----------
-    let noX = 0, noY = 0;
-
-    function setNoStart(){
-      const rect = yesArea.getBoundingClientRect();
-      const elW = noTiny.offsetWidth || 24;
-      const elH = noTiny.offsetHeight || 18;
-      noX = rect.width - elW - 14;
-      noY = rect.height - elH - 12;
-      noTiny.style.left = noX + "px";
-      noTiny.style.top  = noY + "px";
+    function tier(score10){
+      if(score10 >= 8.6) return ["Flying 🖤", "good"];
+      if(score10 >= 7.0) return ["On the right track 🌹", "mid"];
+      return ["Homework time 🍓", "low"];
     }
 
-    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+    function advice(catScores){
+      const weakest = catScores.slice(0,2).map(x=>x.cat);
+      const strengths = catScores.slice(-2).map(x=>x.cat);
 
-    yesArea.addEventListener("mousemove", (e) => {
-      const rect = yesArea.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-
-      const elW = noTiny.offsetWidth;
-      const elH = noTiny.offsetHeight;
-
-      const nx = noX + elW/2;
-      const ny = noY + elH/2;
-
-      const dx = nx - mx;
-      const dy = ny - my;
-      const dist = Math.hypot(dx, dy);
-
-      const threshold = 95;
-      if(dist < threshold){
-        const push = (threshold - dist) / threshold;
-        const dirX = dx / (dist || 1);
-        const dirY = dy / (dist || 1);
-
-        noX += dirX * (20 + 38 * push);
-        noY += dirY * (20 + 38 * push);
-
-        const minX = 10;
-        const minY = 10;
-        const maxX = rect.width - elW - 10;
-        const maxY = rect.height - elH - 10;
-
-        noX = clamp(noX, minX, maxX);
-        noY = clamp(noY, minY, maxY);
-
-        noTiny.style.left = noX + "px";
-        noTiny.style.top  = noY + "px";
+      const focusLines = [];
+      if(weakest.includes("Repair & Conflict")){
+        focusLines.push("When conflict hits, the goal is **repair**, not winning. Practice pausing, soft starts, and coming back to finish the conversation.");
       }
-    });
-
-    // ---------- confetti rain on video start ----------
-    function startConfettiRain(durationMs = 5200){
-      const start = Date.now();
-      confetti.innerHTML = "";
-
-      function spawn(){
-        if(Date.now() - start > durationMs) return;
-
-        const card = document.querySelector(".card");
-        const cRect = card.getBoundingClientRect();
-        const batch = 7;
-
-        for(let i=0;i<batch;i++){
-          const h = document.createElement("div");
-          h.className = "confetti-heart";
-          h.textContent = "🖤";
-
-          const x = rand(0, cRect.width - 10);
-          const size = rand(14, 28);
-          const fallMs = rand(1400, 2600);
-          const drift = rand(-90, 90);
-          const rot = rand(160, 340);
-
-          h.style.left = x + "px";
-          h.style.fontSize = size + "px";
-
-          h.animate(
-            [
-              { transform: `translate(${drift*0.15}px, -20px) rotate(0deg)`, opacity: 0 },
-              { opacity: 1, offset: 0.12 },
-              { transform: `translate(${drift}px, 560px) rotate(${rot}deg)`, opacity: 0 }
-            ],
-            { duration: fallMs, easing: "linear", fill: "forwards" }
-          );
-
-          confetti.appendChild(h);
-          setTimeout(() => h.remove(), fallMs + 50);
-        }
-
-        requestAnimationFrame(spawn);
+      if(weakest.includes("Communication")){
+        focusLines.push("Communication slips show up when we respond fast. Slow down: **repeat back what you heard** before explaining your side.");
       }
-      spawn();
+      if(weakest.includes("Emotional Safety")){
+        focusLines.push("Emotional safety grows when we stay gentle with each other’s feelings. Ask: **“Do you want comfort or solutions?”**");
+      }
+      if(weakest.includes("Teamwork & Trust")){
+        focusLines.push("Teamwork improves when we say it out loud: **“Us vs the problem.”** Name the problem together, then solve it together.");
+      }
+      if(weakest.includes("Fun & Affection")){
+        focusLines.push("Affection is the glue. Even on messy days: a hug, a compliment, a tiny moment of softness.");
+      }
+      if(weakest.includes("Intentions & Proof")){
+        focusLines.push("The big one: intentions need **proof**. Real love looks like consistent actions that match our words.");
+      }
+
+      const goodLines = [];
+      for(const s of strengths){
+        if(s === "Fun & Affection") goodLines.push("You two still have that playful spark — protect it.");
+        if(s === "Teamwork & Trust") goodLines.push("You’re strongest when you stay on the same team.");
+        if(s === "Emotional Safety") goodLines.push("There’s real softness here — that’s rare.");
+        if(s === "Communication") goodLines.push("You can understand each other when you slow down.");
+        if(s === "Repair & Conflict") goodLines.push("You can bounce back — keep polishing the repair habit.");
+        if(s === "Intentions & Proof") goodLines.push("Your intentions are showing — keep matching words with actions.");
+      }
+
+      // Always include the “real world” line the user asked for
+      const realWorld = "Now the important part: **apply it in the real world**. Not just this page. Show each other you’re serious through consistency, patience, and the way you handle the hard moments. That’s where intentions become real.";
+
+      return { focusLines, goodLines, realWorld, weakest, strengths };
     }
 
-    function goToVideo(){
-      document.getElementById("screen1").classList.remove("active");
-      document.getElementById("screen2").classList.add("active");
-      startConfettiRain(6000);
-      const v = document.getElementById("vid");
-      v.play().catch(()=>{});
+    function homeworkPlan(weakest){
+      const plan = [];
+      if(weakest.includes("Repair & Conflict")){
+        plan.push("Use a **Pause Phrase**: “Pause. I love you. I need 20 minutes.” Then return and finish.");
+        plan.push("Do a **2-sentence repair**: “I hear you. I’m sorry for __. Next time I will __.”");
+      }
+      if(weakest.includes("Communication")){
+        plan.push("Try **Repeat & Confirm**: “What I’m hearing is __. Did I get that right?”");
+      }
+      if(weakest.includes("Emotional Safety")){
+        plan.push("Use a **soft start**: “Babe, can I share something gently?” (no accusations).");
+      }
+      if(weakest.includes("Teamwork & Trust")){
+        plan.push("Say “**Us vs the problem**” and write the problem in one sentence together.");
+      }
+      if(weakest.includes("Fun & Affection")){
+        plan.push("Daily **2-minute softness**: hug + one compliment + one thank you.");
+      }
+      if(weakest.includes("Intentions & Proof")){
+        plan.push("Pick **one promise** each and prove it for 7 days (small, consistent actions).");
+      }
+      plan.push("Weekly **10-minute debrief**: What went well? What triggered us? What’s our one tweak?");
+      return plan.slice(0,6);
     }
 
-    // init
-    placeButtons();
-    setNoStart();
-    requestAnimationFrame(animateButtons);
-    window.addEventListener("resize", () => {
-      placeButtons();
-      setNoStart();
-    });
+    function renderResults(){
+      renderStickers("results");
+      bar.style.width = "100%";
+      stepText.textContent = "Finished • Report Card";
+
+      const { overall, conflict, cats, catScores } = compute();
+      const overallPct = Math.round(overall * 100);
+      const [confLabel, confClass] = tier(conflict);
+      const [ovLabel, ovClass] = tier(overallPct/10);
+
+      const catRows = Object.keys(cats).map(k=>{
+        const p = Math.round((cats[k].sum / cats[k].max) * 100);
+        return `<li><strong>${k}:</strong> ${p}%</li>`;
+      }).join("");
+
+      const a = advice(catScores);
+      const plan = homeworkPlan(a.weakest).map(t=>`<li>${t}</li>`).join("");
+
+      const focus = a.focusLines.length ? `<ul class="list">${a.focusLines.map(x=>`<li>${x}</li>`).join("")}</ul>` : `<div class="small">You’re balanced. Keep the habits consistent.</div>`;
+      const good = a.goodLines.length ? `<ul class="list">${a.goodLines.map(x=>`<li>${x}</li>`).join("")}</ul>` : `<div class="small">You’ve got a solid base — keep building.</div>`;
+
+      panel.innerHTML = `
+        <div class="reportTitle">Paris & Bear’s Report Card 🖤🌹🍓</div>
+        <div class="reportSubtitle">
+          A playful mirror — not a judgement. The point is growth + proof in real life.
+        </div>
+
+        <div class="grid2">
+          <div class="metric">
+            <h3>Overall Score</h3>
+            <div class="big">${overallPct}%</div>
+            <div class="badge ${ovClass}">${ovLabel}</div>
+            <div class="small">Love is there. Consistency is the multiplier.</div>
+          </div>
+
+          <div class="metric">
+            <h3>Conflict Resolution</h3>
+            <div class="big">${conflict.toFixed(1)}/10</div>
+            <div class="badge ${confClass}">${confLabel}</div>
+            <div class="small">This is the level-up zone. The homework matters most here.</div>
+          </div>
+        </div>
+
+        <div class="metric" style="margin-top:12px;">
+          <h3>What you do right</h3>
+          ${good}
+        </div>
+
+        <div class="metric" style="margin-top:12px;">
+          <h3>What needs harder work</h3>
+          ${focus}
+        </div>
+
+        <div class="metric" style="margin-top:12px;">
+          <h3>Category Breakdown</h3>
+          <ul class="list">${catRows}</ul>
+        </div>
+
+        <div class="note">
+          <h3>Real-world proof</h3>
+          <p>${a.realWorld}</p>
+        </div>
+
+        <div class="metric" style="margin-top:12px;">
+          <h3>Homework plan (7 days)</h3>
+          <ul class="list">${plan}</ul>
+        </div>
+
+        <div class="row" style="margin-top:14px;">
+          <button class="btn" id="restartBtn">Retake</button>
+          <button class="btn primary" id="watchBtn">Watch the video 💍</button>
+        </div>
+
+        <video id="vid" controls playsinline style="display:none;">
+          <source src="proposal.mp4" type="video/mp4" />
+        </video>
+      `;
+
+      document.getElementById("restartBtn").addEventListener("click", ()=>{
+        idx = 0;
+        renderQuestion();
+        window.scrollTo({top:0, behavior:"smooth"});
+      });
+
+      document.getElementById("watchBtn").addEventListener("click", ()=>{
+        const v = document.getElementById("vid");
+        v.style.display = "block";
+        v.scrollIntoView({ behavior: "smooth", block: "start" });
+        v.play().catch(()=>{});
+      });
+    }
+
+    // start
+    renderQuestion();
   </script>
 </body>
 </html>
