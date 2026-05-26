@@ -1,391 +1,728 @@
+
 <!doctype html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8" />
+
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>Paris & Bear 🖤 Homework</title>
+
   <style>
+
     :root{
+
       --bg:#07070a; --bg2:#0b0b10;
+
       --card:rgba(18,18,26,0.92);
+
       --border:rgba(255,255,255,0.10);
+
       --text:#f5f5f7;
+
       --muted:rgba(245,245,247,0.72);
+
       --rose:#ff2f6d;
+
       --rose2:#ff5a8a;
+
       --gold:#f7d57a;
+
       --chip:rgba(255,255,255,0.06);
+
       --good:#4ade80;
+
       --mid:#fbbf24;
+
       --low:#fb7185;
+
     }
 
     *{ box-sizing:border-box; }
+
     body{
+
       margin:0; min-height:100vh;
+
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
       background:
+
         radial-gradient(circle at 15% 20%, rgba(255,47,109,0.14), transparent 45%),
+
         radial-gradient(circle at 85% 15%, rgba(247,213,122,0.10), transparent 45%),
+
         radial-gradient(circle at 80% 85%, rgba(255,90,138,0.10), transparent 50%),
+
         linear-gradient(180deg, var(--bg), var(--bg2));
+
       color:var(--text);
+
       display:flex; align-items:center; justify-content:center;
+
       padding:18px;
+
     }
 
     .wrap{ width:min(920px, 100%); }
 
     .card{
+
       background: var(--card);
+
       border:1px solid var(--border);
+
       border-radius:24px;
+
       padding:22px;
+
       box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+
       position:relative;
+
       overflow:hidden;
+
       backdrop-filter: blur(10px);
+
     }
+
     .card::before{
+
       content:"";
+
       position:absolute;
+
       inset:-90px;
+
       background:
+
         radial-gradient(circle at 18% 18%, rgba(255,47,109,0.16), transparent 35%),
+
         radial-gradient(circle at 62% 40%, rgba(255,90,138,0.12), transparent 40%),
+
         radial-gradient(circle at 85% 75%, rgba(247,213,122,0.10), transparent 45%);
+
       pointer-events:none;
+
     }
 
     /* Emoji sprinkle layer */
+
     #sprinkles{
+
       position:absolute;
+
       inset:0;
+
       pointer-events:none;
+
       z-index:3;
+
     }
+
     .spr{
+
       position:absolute;
+
       font-size:26px;
+
       opacity:0.92;
+
       filter: drop-shadow(0 14px 16px rgba(0,0,0,0.45));
+
       transform: rotate(var(--rot, 0deg));
+
       user-select:none;
+
     }
+
     .spr.small{ font-size:22px; opacity:0.78; }
+
     .spr.big{ font-size:32px; opacity:0.95; }
 
     /* Header */
+
     .top{
+
       position:relative;
+
       display:grid;
+
       grid-template-columns: 64px 1fr 64px;
+
       align-items:center;
+
       gap:12px;
+
       z-index:4;
+
       margin-bottom:10px;
+
     }
+
     .bubble{
+
       width:60px;height:60px;border-radius:999px;
+
       display:grid;place-items:center;
+
       background: rgba(255,255,255,0.06);
+
       border:1px solid rgba(255,255,255,0.12);
+
       font-size:28px;
+
       user-select:none;
+
       box-shadow: 0 14px 24px rgba(0,0,0,0.25);
+
     }
+
     .title{ text-align:center; line-height:1.2; }
+
     h1{
+
       margin:0;
+
       font-size:18px;
+
       font-weight:1000;
+
       letter-spacing:-0.3px;
+
     }
+
     .sub{
+
       margin:10px 0 0 0;
+
       color:var(--muted);
+
       font-size:13px;
+
       line-height:1.55;
+
     }
 
     /* Progress */
+
     .progress{
+
       position:relative;
+
       z-index:4;
+
       margin:16px 0 10px;
+
       height:10px;
+
       background: rgba(255,255,255,0.06);
+
       border:1px solid rgba(255,255,255,0.10);
+
       border-radius:999px;
+
       overflow:hidden;
+
     }
+
     .bar{
+
       height:100%;
+
       width:0%;
+
       background: linear-gradient(90deg, var(--rose), var(--rose2), var(--gold));
+
       border-radius:999px;
+
       transition: width 240ms ease;
+
     }
+
     .steptext{
+
       position:relative;
+
       z-index:4;
+
       margin-top:10px;
+
       text-align:center;
+
       color:var(--muted);
+
       font-size:12px;
+
     }
 
     /* Panel */
+
     .panel{
+
       position:relative;
+
       z-index:4;
+
       margin-top:18px;
+
       border-radius:20px;
+
       background: rgba(255,255,255,0.04);
+
       border:1px solid rgba(255,255,255,0.12);
+
       padding:18px;
+
     }
 
     .qtag{
+
       display:inline-flex;
+
       gap:8px;
+
       align-items:center;
+
       padding:7px 12px;
+
       border-radius:999px;
+
       background: var(--chip);
+
       border:1px solid rgba(255,255,255,0.10);
+
       font-size:12px;
+
       color:var(--muted);
+
       margin-bottom:14px;
+
     }
+
     .qtitle{
+
       font-size:18px;
+
       font-weight:1000;
+
       letter-spacing:-0.2px;
+
       margin:0 0 10px 0;
+
       line-height:1.25;
+
     }
+
     .qhint{
+
       margin:0 0 16px 0;
+
       color:var(--muted);
+
       font-size:13px;
+
       line-height:1.55;
+
     }
 
     /* Slider */
+
     .sliderCard{
+
       background: rgba(255,255,255,0.06);
+
       border:1px solid rgba(255,255,255,0.14);
+
       border-radius:20px;
+
       padding:16px;
+
     }
+
     .sliderTop{
+
       display:flex;
+
       align-items:flex-start;
+
       justify-content:space-between;
+
       gap:12px;
+
       margin-bottom:12px;
+
     }
+
     .agreeLabel{
+
       color: var(--muted);
+
       font-size:12px;
+
       font-weight:900;
+
       letter-spacing:0.2px;
+
       text-transform:uppercase;
+
     }
+
     .scoreBubble{
+
       min-width:92px;
+
       text-align:center;
+
       padding:9px 12px;
+
       border-radius:999px;
+
       font-weight:1000;
+
       border:1px solid rgba(255,255,255,0.14);
+
       background: rgba(0,0,0,0.25);
+
     }
 
     input[type="range"]{
+
       width:100%;
+
       accent-color: var(--rose2);
+
       height:30px;
+
       margin-top:2px;
+
     }
+
     .rangeLabels{
+
       display:flex;
+
       justify-content:space-between;
+
       gap:8px;
+
       margin-top:10px;
+
       color: var(--muted);
+
       font-size:11px;
+
     }
+
     .rangeLabels span{ width:20%; text-align:center; opacity:0.9; }
 
     .row{
+
       display:flex;
+
       gap:10px;
+
       margin-top:16px;
+
       flex-wrap:wrap;
+
     }
+
     .btn{
+
       border:none;
+
       border-radius:999px;
+
       padding:11px 16px;
+
       font-weight:1000;
+
       cursor:pointer;
+
       background: rgba(255,255,255,0.08);
+
       border:1px solid rgba(255,255,255,0.14);
+
       color: var(--text);
+
     }
+
     .btn.primary{
+
       background: linear-gradient(135deg, var(--rose), var(--rose2));
+
       border:none;
+
       box-shadow: 0 14px 28px rgba(255,47,109,0.20);
+
     }
+
     .btn:disabled{ opacity:0.45; cursor:not-allowed; }
 
     /* Results */
+
     .reportTitle{
+
       text-align:center;
+
       font-weight:1000;
+
       letter-spacing:-0.3px;
+
       margin:4px 0 10px 0;
+
       font-size:18px;
+
     }
+
     .reportSubtitle{
+
       text-align:center;
+
       color:var(--muted);
+
       font-size:13px;
+
       margin:0 0 16px 0;
+
       line-height:1.6;
+
     }
 
     .grid2{ display:grid; grid-template-columns: 1fr; gap:12px; }
+
     @media (min-width: 720px){
+
       h1{ font-size:20px; }
+
       .qtitle{ font-size:20px; }
+
       .grid2{ grid-template-columns: 1fr 1fr; }
+
       .reportTitle{ font-size:20px; }
+
     }
 
     .metric{
+
       background: rgba(255,255,255,0.05);
+
       border:1px solid rgba(255,255,255,0.12);
+
       border-radius:20px;
+
       padding:16px;
+
     }
+
     .metric h3{
+
       margin:0 0 8px 0;
+
       font-size:12px;
+
       color: var(--muted);
+
       font-weight:1000;
+
       letter-spacing:0.2px;
+
       text-transform:uppercase;
+
     }
+
     .big{
+
       font-size:34px;
+
       font-weight:1100;
+
       letter-spacing:-0.6px;
+
       margin:0;
+
     }
+
     .small{
+
       margin:8px 0 0 0;
+
       color: var(--muted);
+
       font-size:13px;
+
       line-height:1.6;
+
     }
+
     .badge{
+
       display:inline-flex;
+
       align-items:center;
+
       gap:8px;
+
       margin-top:10px;
+
       padding:6px 10px;
+
       border-radius:999px;
+
       font-weight:1000;
+
       font-size:12px;
+
       border:1px solid rgba(255,255,255,0.14);
+
       background: rgba(255,255,255,0.06);
+
     }
+
     .badge.good{ color: var(--good); }
+
     .badge.mid{ color: var(--mid); }
+
     .badge.low{ color: var(--low); }
 
     .list{
+
       margin:10px 0 0 0;
+
       padding-left:18px;
+
       color: var(--muted);
+
       line-height:1.65;
+
       font-size:13px;
+
     }
 
     .note{
+
       background: rgba(255,255,255,0.05);
+
       border:1px solid rgba(255,255,255,0.12);
+
       border-radius:20px;
+
       padding:16px;
+
       margin-top:12px;
+
     }
+
     .note h3{
+
       margin:0 0 8px 0;
+
       font-size:12px;
+
       color: var(--muted);
+
       font-weight:1000;
+
       letter-spacing:0.2px;
+
       text-transform:uppercase;
+
     }
+
     .note p{
+
       margin:0;
+
       color: var(--text);
+
       font-size:13px;
+
       line-height:1.65;
+
     }
 
     video{
+
       width:100%;
+
       margin-top:14px;
+
       border-radius:20px;
+
       border:1px solid rgba(255,255,255,0.12);
+
       background:#000;
+
       max-height:460px;
+
     }
+
   </style>
+
 </head>
 
 <body>
+
   <div class="wrap">
+
     <div class="card">
+
       <div id="sprinkles"></div>
 
       <div class="top">
+
         <div class="bubble">🌹</div>
+
         <div class="title">
+
           <h1>Paris & Bear — Conflict Glow-Up Homework 🖤</h1>
+
           <div class="sub">10 questions • one slider each • then your report card + a real plan.</div>
+
         </div>
+
         <div class="bubble">🍓</div>
+
       </div>
 
       <div class="progress"><div class="bar" id="bar"></div></div>
+
       <div class="steptext" id="stepText">Question 1 of 10</div>
 
       <div class="panel" id="panel"></div>
+
     </div>
+
   </div>
 
   <script>
+
     const HER_NAME = "Paris";
 
     // reverse=true means: DISAGREE is healthier, so we invert scoring (6 - value)
+
     const QUESTIONS = [
+
       { cat:"Repair & Conflict", weight:2, emoji:"🖤", title:"When we argue, respect stays.", hint:"Even when it’s tense: no insults, no cheap shots.", reverse:false },
+
       { cat:"Repair & Conflict", weight:2, emoji:"🌹", title:"We come back and repair the vibe.", hint:"We actually fix it together — not just “move on.”", reverse:false },
+
       { cat:"Repair & Conflict", weight:2, emoji:"🍓", title:"We apologize without excuses.", hint:"Clean apology: “I hear you. I’m sorry. I’ll do better.”", reverse:false },
 
       // reverse-scored (good answer = disagree)
+
       { cat:"Repair & Conflict", weight:2, emoji:"🖤", title:"We use silent treatment to punish each other.", hint:"Healthy answer is disagree. Space is okay; punishment silence isn’t.", reverse:true },
+
       { cat:"Repair & Conflict", weight:2, emoji:"🌹", title:"We say hurtful things when we’re upset.", hint:"Healthy answer is disagree. Words leave scars.", reverse:true },
 
       { cat:"Communication", weight:1, emoji:"🍓", title:"We listen to understand (not to win).", hint:"We reflect back what we heard before replying.", reverse:false },
 
       // reverse-scored
+
       { cat:"Communication", weight:1, emoji:"🖤", title:"We argue to prove a point, not to solve it.", hint:"Healthy answer is disagree. Aim for solution, not victory.", reverse:true },
 
       { cat:"Emotional Safety", weight:1, emoji:"🌹", title:"We feel emotionally safe being honest.", hint:"We can be soft and vulnerable without fear.", reverse:false },
@@ -393,308 +730,516 @@
       { cat:"Teamwork & Trust", weight:1, emoji:"💍", title:"It feels like ‘us vs the problem’.", hint:"We stay on the same team during stress.", reverse:false },
 
       { cat:"Intentions & Proof", weight:1, emoji:"💐", title:"We prove intentions in real life.", hint:"Not just words — consistent actions that match who we say we are.", reverse:false },
+
     ];
 
     const picks = new Array(QUESTIONS.length).fill(3); // raw 1..5
+
     let idx = 0;
 
     const panel = document.getElementById("panel");
+
     const bar = document.getElementById("bar");
+
     const stepText = document.getElementById("stepText");
+
     const sprinkles = document.getElementById("sprinkles");
 
     function sliderLabel(v){
+
       v = Number(v);
+
       if(v === 1) return "Strongly Disagree";
+
       if(v === 2) return "Disagree";
+
       if(v === 3) return "Neutral";
+
       if(v === 4) return "Agree";
+
       return "Strongly Agree";
+
     }
 
     // Emoji sprinkles per screen (simple, no creepy drawings)
+
     const SPRINKLES_BY_SCREEN = [
+
       ["🐻","🌹","🍓","🖤","✨"],
+
       ["🐻","💐","🖤","🌹","✨"],
+
       ["🐻","🍓","🌹","🖤","✨"],
+
       ["🐻","🖤","🌹","✨","🍓"],
+
       ["🐻","🖤","🍓","✨","🌹"],
+
       ["🐻","💬","🌹","✨","🖤"],
+
       ["🐻","🖤","⚡","✨","🍓"],
+
       ["🐻","🌹","🖤","✨","💐"],
+
       ["🐻","💍","🖤","✨","🌹"],
+
       ["🐻","💐","🖤","✨","🍓"],
+
     ];
+
     const SPRINKLES_RESULTS = ["🐻","🌹","🍓","💍","💐","🖤","✨","✨"];
 
     function renderSprinkles(mode){
+
       // mode: question index number or "results"
+
       const list = mode === "results" ? SPRINKLES_RESULTS : (SPRINKLES_BY_SCREEN[mode] || ["🐻","🌹","🍓","🖤","✨"]);
+
       const spots = [
+
         {x:"10px", y:"10px", rot:"-12deg", cls:"small"},
+
         {x:"calc(100% - 40px)", y:"14px", rot:"12deg", cls:"small"},
+
         {x:"12px", y:"calc(100% - 44px)", rot:"10deg", cls:"small"},
+
         {x:"calc(100% - 44px)", y:"calc(100% - 46px)", rot:"-10deg", cls:"small"},
+
         {x:"-6px", y:"160px", rot:"-8deg", cls:"big"},
+
         {x:"calc(100% - 52px)", y:"190px", rot:"8deg", cls:"big"},
+
         {x:"22px", y:"92px", rot:"-6deg", cls:""},
+
         {x:"calc(100% - 54px)", y:"110px", rot:"6deg", cls:""},
+
       ];
 
       sprinkles.innerHTML = "";
+
       for(let i=0;i<Math.min(list.length, spots.length);i++){
+
         const s = document.createElement("div");
+
         s.className = `spr ${spots[i].cls || ""}`;
+
         s.style.left = spots[i].x;
+
         s.style.top = spots[i].y;
+
         s.style.setProperty("--rot", spots[i].rot);
+
         s.textContent = list[i];
+
         sprinkles.appendChild(s);
+
       }
+
     }
 
     function setProgress(){
+
       const total = QUESTIONS.length;
+
       stepText.textContent = `Question ${idx+1} of ${total}`;
+
       bar.style.width = `${(idx/total)*100}%`;
+
     }
 
     function renderQuestion(){
+
       renderSprinkles(idx);
+
       setProgress();
 
       const q = QUESTIONS[idx];
+
       const current = picks[idx] ?? 3;
 
       panel.innerHTML = `
+
         <div class="qtag">${q.emoji} <strong>${q.cat}</strong> <span style="opacity:.65;">•</span> <span>weight x${q.weight}</span></div>
+
         <h2 class="qtitle">${q.title}</h2>
+
         <p class="qhint">${q.hint}</p>
 
         <div class="sliderCard">
+
           <div class="sliderTop">
+
             <div>
+
               <div class="agreeLabel">Your answer</div>
+
               <div id="labelLine" style="margin-top:8px;font-weight:1000;line-height:1.35;">${sliderLabel(current)}</div>
+
             </div>
+
             <div class="scoreBubble" id="scoreBubble">${current}/5</div>
+
           </div>
 
           <input id="range" type="range" min="1" max="5" step="1" value="${current}" />
+
           <div class="rangeLabels">
+
             <span>SD</span><span>D</span><span>OK</span><span>A</span><span>SA</span>
+
           </div>
+
         </div>
 
         <div class="row">
+
           <button class="btn" id="backBtn" ${idx===0?'disabled':''}>Back</button>
+
           <button class="btn primary" id="nextBtn">${idx===QUESTIONS.length-1 ? 'Finish' : 'Next'}</button>
+
         </div>
+
       `;
 
       const range = document.getElementById("range");
+
       const bubble = document.getElementById("scoreBubble");
+
       const labelLine = document.getElementById("labelLine");
 
       range.addEventListener("input", () => {
+
         const v = Number(range.value);
+
         picks[idx] = v;
+
         bubble.textContent = `${v}/5`;
+
         labelLine.textContent = sliderLabel(v);
+
       });
 
       document.getElementById("backBtn").addEventListener("click", () => {
+
         if(idx>0){ idx--; renderQuestion(); }
+
       });
 
       document.getElementById("nextBtn").addEventListener("click", () => {
+
         if(idx < QUESTIONS.length-1){ idx++; renderQuestion(); }
+
         else renderResults();
+
       });
+
     }
 
     function compute(){
+
       let wSum = 0, wMax = 0;
+
       const cats = {};
 
       for(let i=0;i<QUESTIONS.length;i++){
+
         const q = QUESTIONS[i];
+
         const raw = Number(picks[i] ?? 3);
+
         const scored = q.reverse ? (6 - raw) : raw; // invert if reverse-scored
 
         wSum += scored * q.weight;
+
         wMax += 5 * q.weight;
 
         if(!cats[q.cat]) cats[q.cat] = { sum:0, max:0 };
+
         cats[q.cat].sum += scored;
+
         cats[q.cat].max += 5;
+
       }
 
       const overall = wSum / wMax; // 0..1
+
       const conflict = (cats["Repair & Conflict"].sum / cats["Repair & Conflict"].max) * 10;
 
       const catScores = Object.keys(cats).map(k => ({ cat:k, pct: cats[k].sum / cats[k].max }))
+
         .sort((a,b)=>a.pct-b.pct);
 
       return { overall, conflict, cats, catScores };
+
     }
 
     function tier(score10){
+
       if(score10 >= 8.6) return ["Flying 🖤", "good"];
+
       if(score10 >= 7.0) return ["On the right track 🌹", "mid"];
+
       return ["Homework time 🍓", "low"];
+
     }
 
     function advice(catScores){
+
       const weakest = catScores.slice(0,2).map(x=>x.cat);
+
       const strengths = catScores.slice(-2).map(x=>x.cat);
 
       const focusLines = [];
+
       if(weakest.includes("Repair & Conflict")){
+
         focusLines.push("Conflict is the level-up zone. The goal is **repair**, not winning. Pause, soften, then come back and finish properly.");
+
       }
+
       if(weakest.includes("Communication")){
+
         focusLines.push("When communication slips, slow down: **repeat back what you heard** before explaining your side.");
+
       }
+
       if(weakest.includes("Emotional Safety")){
+
         focusLines.push("Emotional safety grows when we stay gentle with feelings: ask **“comfort or solutions?”**");
+
       }
+
       if(weakest.includes("Teamwork & Trust")){
+
         focusLines.push("Teamwork improves when you say it out loud: **“Us vs the problem.”** Name the problem together, then solve it together.");
+
       }
+
       if(weakest.includes("Intentions & Proof")){
+
         focusLines.push("Intentions need **proof**: consistent actions that match the words, especially after hard moments.");
+
       }
 
       const goodLines = [];
+
       for(const s of strengths){
+
         if(s === "Teamwork & Trust") goodLines.push("You’re strongest when you stay on the same team.");
+
         if(s === "Emotional Safety") goodLines.push("There’s softness here — protect it.");
+
         if(s === "Communication") goodLines.push("You can understand each other when you slow down.");
+
         if(s === "Repair & Conflict") goodLines.push("You can bounce back — keep polishing the repair habit.");
+
         if(s === "Intentions & Proof") goodLines.push("Your intentions are showing — keep matching words with actions.");
+
       }
 
       const realWorld = "Now the important part: **apply it in the real world**. Not just this page. Show each other you’re serious through consistency, patience, and the way you handle the hard moments. That’s where intentions become real.";
 
       return { focusLines, goodLines, realWorld, weakest, strengths };
+
     }
 
     function homeworkPlan(weakest){
+
       const plan = [];
+
       if(weakest.includes("Repair & Conflict")){
+
         plan.push("Use a **Pause Phrase**: “Pause. I love you. I need 20 minutes.” Then return and finish.");
+
         plan.push("Do a **2-sentence repair**: “I hear you. I’m sorry for __. Next time I will __.”");
+
       }
+
       if(weakest.includes("Communication")){
+
         plan.push("Try **Repeat & Confirm**: “What I’m hearing is __. Did I get that right?”");
+
       }
+
       if(weakest.includes("Emotional Safety")){
+
         plan.push("Use a **soft start**: “Babe, can I share something gently?”");
+
       }
+
       if(weakest.includes("Teamwork & Trust")){
+
         plan.push("Say “**Us vs the problem**” and write the problem in one sentence together.");
+
       }
+
       if(weakest.includes("Intentions & Proof")){
+
         plan.push("Pick **one promise each** and prove it for 7 days (small, consistent actions).");
+
       }
+
       plan.push("Weekly **10-minute debrief**: What went well? What triggered us? What’s our one tweak?");
+
       return plan.slice(0,6);
+
     }
 
     function renderResults(){
+
       renderSprinkles("results");
+
       bar.style.width = "100%";
+
       stepText.textContent = "Finished • Report Card";
 
       const { overall, conflict, cats, catScores } = compute();
+
       const overallPct = Math.round(overall * 100);
+
       const [confLabel, confClass] = tier(conflict);
+
       const [ovLabel, ovClass] = tier(overallPct/10);
 
       const catRows = Object.keys(cats).map(k=>{
+
         const p = Math.round((cats[k].sum / cats[k].max) * 100);
+
         return `<li><strong>${k}:</strong> ${p}%</li>`;
+
       }).join("");
 
       const a = advice(catScores);
+
       const plan = homeworkPlan(a.weakest).map(t=>`<li>${t}</li>`).join("");
 
       const focus = a.focusLines.length ? `<ul class="list">${a.focusLines.map(x=>`<li>${x}</li>`).join("")}</ul>` : `<div class="small">You’re balanced. Keep the habits consistent.</div>`;
+
       const good = a.goodLines.length ? `<ul class="list">${a.goodLines.map(x=>`<li>${x}</li>`).join("")}</ul>` : `<div class="small">You’ve got a solid base — keep building.</div>`;
 
       panel.innerHTML = `
+
         <div class="reportTitle">Paris & Bear’s Report Card 🖤🌹🍓</div>
+
         <div class="reportSubtitle">
+
           A playful mirror — not a judgement. The point is growth + proof in real life.
+
         </div>
 
         <div class="grid2">
+
           <div class="metric">
+
             <h3>Overall Score</h3>
+
             <div class="big">${overallPct}%</div>
+
             <div class="badge ${ovClass}">${ovLabel}</div>
+
             <div class="small">Love is there. Consistency is the multiplier.</div>
+
           </div>
 
           <div class="metric">
+
             <h3>Conflict Resolution</h3>
+
             <div class="big">${conflict.toFixed(1)}/10</div>
+
             <div class="badge ${confClass}">${confLabel}</div>
+
             <div class="small">This is the level-up zone. The homework matters most here.</div>
+
           </div>
+
         </div>
 
         <div class="metric" style="margin-top:12px;">
+
           <h3>What you do right</h3>
+
           ${good}
+
         </div>
 
         <div class="metric" style="margin-top:12px;">
+
           <h3>What needs harder work</h3>
+
           ${focus}
+
         </div>
 
         <div class="metric" style="margin-top:12px;">
+
           <h3>Category Breakdown</h3>
+
           <ul class="list">${catRows}</ul>
+
         </div>
 
         <div class="note">
+
           <h3>Real-world proof</h3>
+
           <p>${a.realWorld}</p>
+
         </div>
 
         <div class="metric" style="margin-top:12px;">
+
           <h3>Homework plan (7 days)</h3>
+
           <ul class="list">${plan}</ul>
+
         </div>
 
         <div class="row" style="margin-top:16px;">
+
           <button class="btn" id="restartBtn">Retake</button>
+
           <button class="btn primary" id="watchBtn">Watch the video 💍</button>
+
         </div>
 
         <video id="vid" controls playsinline style="display:none;">
+
           <source src="proposal.mp4" type="video/mp4" />
+
         </video>
+
       `;
 
       document.getElementById("restartBtn").addEventListener("click", ()=>{
+
         idx = 0;
+
         renderQuestion();
+
         window.scrollTo({top:0, behavior:"smooth"});
+
       });
 
       document.getElementById("watchBtn").addEventListener("click", ()=>{
+
         const v = document.getElementById("vid");
+
         v.style.display = "block";
+
         v.scrollIntoView({ behavior: "smooth", block: "start" });
+
         v.play().catch(()=>{});
+
       });
+
     }
 
     renderQuestion();
+
   </script>
+
 </body>
+
 </html>
+
